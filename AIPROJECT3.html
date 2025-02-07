@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Severity Rating</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        input, button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .severity, .advice {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Disease Severity Checker</h1>
+    <input type="text" id="diseaseName" placeholder="Enter disease name" required>
+    <button onclick="checkDiseaseSeverity()">Check Severity</button>
+
+    <div id="result" class="result" style="display:none;">
+        <div class="severity"></div>
+        <div class="advice"></div>
+    </div>
+</div>
+
+<script>
+    function checkDiseaseSeverity() {
+        const diseaseName = document.getElementById('diseaseName').value.trim();
+        if (diseaseName === "") {
+            alert("Please enter a disease name.");
+            return;
+        }
+
+        // Mock database of diseases with severity and doctor visit advice
+        const diseaseData = {
+            "Flu": { severity: 6, advice: "If symptoms worsen or last longer than a week, visit a doctor." },
+            "Diabetes": { severity: 8, advice: "Early detection is key. See a doctor as soon as symptoms appear." },
+            "Cancer": { severity: 10, advice: "Seek medical attention immediately for a proper diagnosis." },
+            "Cold": { severity: 3, advice: "Cold symptoms usually resolve on their own, but see a doctor if they persist for more than 2 weeks." },
+            "COVID-19": { severity: 9, advice: "Get tested and consult a doctor if you experience severe symptoms like difficulty breathing." },
+            "Heart Attack": { severity: 10, advice: "Seek emergency medical help immediately if you experience chest pain or shortness of breath." },
+            "Asthma": { severity: 7, advice: "If symptoms become frequent or severe, see a doctor to adjust your medication." },
+            // Add more diseases as needed
+        };
+
+        const resultDiv = document.getElementById('result');
+        const severityDiv = document.querySelector('.severity');
+        const adviceDiv = document.querySelector('.advice');
+
+        // Check if the disease exists in the mock data
+        if (diseaseData[diseaseName]) {
+            const { severity, advice } = diseaseData[diseaseName];
+
+            // Display severity and advice
+            severityDiv.innerHTML = `Severity Rating: <strong>${severity}/10</strong>`;
+            adviceDiv.innerHTML = `Advice: ${advice}`;
+
+            resultDiv.style.display = 'block';
+        } else {
+            alert("Disease not found. Please try a different disease.");
+        }
+    }
+</script>
+
+</body>
+</html>
